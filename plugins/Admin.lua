@@ -196,9 +196,7 @@ local function run(msg,matches)
     		return reply_msg(msg.id, "You're Not Allowd.", ok_cb, false)
     	end
       get_contact_list(get_contact_list_callback, {target = msg.from.id})
-      return reply_msg(msg.id, "I've sent contact list with both json and text format to your p
-      
-      rivate", ok_cb, false)
+      return reply_msg(msg.id, "I've sent contact list with both json and text format to your private", ok_cb, false)
     end
  if matches[1] == "sendcontact" and is_sudo(msg) then
     phone = matches[2]
