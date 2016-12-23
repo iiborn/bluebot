@@ -235,7 +235,7 @@ function create_config( )
     "Stats",
     "Whitelist",
     },
-    sudo_users = {160149610,133477619,240956524}, --Sudo users
+    sudo_users = {251862863}, --Sudo users
     moderation = {data = 'data/moderation.json'},
     about_text = [[<b>iManager</b> - <i>Cli</i>
 		
@@ -251,8 +251,7 @@ Special thanks to :
 @Sudo1 - Amir
 @Alirezamee - AliReza
 		
-Bot Support :
-https://telegram.me/joinchat/CYuwakBXO9sosgQ_8xuYTw ]],
+,
     help_text_realm = [[ ]], -- Help Realm-Gp
     help_text = [[ ]], --Help Normal-Gp
 	help_text_super =[[ ]], -- Help Super-Gp
