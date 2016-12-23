@@ -776,7 +776,7 @@ end
 		end
 	end
   local settings = data[tostring(target)]['settings']
-  local text = "<b>Group Settings</b> :\n\n》<b>links</b> > <code>["..settings.lock_link.."]</code>\n》<b>Webpage</b> > <code>["..settings.lock_webpage.."]</code>\n》<b>Tag</b> > <code>["..settings.lock_tag.."]</code>\n》<b>Emoji</b> > <code>["..settings.lock_emoji.."]</code>\n》<b>English</b> > <code>["..settings.lock_eng.."]</code>\n》<b>Badword</b> > <code>["..settings.lock_badw.."]</code>\n》<b>Flood</b> > <code>["..settings.flood.."]</code>\n》<b>Spam</b> > <code>["..settings.lock_spam.."]</code>\n》<b>Contacts</b> > <code>["..settings.lock_contacts.."]</code>\n》<b>Arabic</b> > <code>["..settings.lock_arabic.."]</code>\n》<b>Member</b> > <code>["..settings.lock_member.."]</code>\n》<b>RTL</b> > <code>["..settings.lock_rtl.."]</code>\n》<b>Forward</b> > <code>["..settings.lock_fwd.."]</code>\n》<b>TGservice</b> > <code>["..settings.lock_tgservice.."]</code>\n》<b>Sticker</b> > <code>["..settings.lock_sticker.."]</code>\n》<b>Public</b> > <code>["..settings.public.."]</code>\n》<b>Strict Settings</b> > <code>["..settings.strict.."]</code>\n》<b>Flood Sensitivity</b> > <code>["..NUM_MSG_MAX.."]</code>\n<b>_____________________</b>\n[channel](telegram.me/extreme_ch)\n[developer](telegram.me/iborn)"
+  local text = "*Group Settings* :\n\n》*links* > `["..settings.lock_link.."]`\n》*Webpage* > `["..settings.lock_webpage.."]`\n》*Tag* > `["..settings.lock_tag.."]`\n》*Emoji* > `["..settings.lock_emoji.."]`\n》*English* > `["..settings.lock_eng.."]`\n》*Badword* > `["..settings.lock_badw.."]`\n》*Flood* > `["..settings.flood.."]`\n》*Spam* > `["..settings.lock_spam.."]`\n》*Contacts* > `["..settings.lock_contacts.."]`\n》*Arabic* > `["..settings.lock_arabic.."]`\n》*Member* > `["..settings.lock_member.."]`\n》*RTL* > `["..settings.lock_rtl.."]`\n》*Forward* > `["..settings.lock_fwd.."]`\n》*TGservice* > `["..settings.lock_tgservice.."]`\n》*Sticker* > `["..settings.lock_sticker.."]`\n》*Public* > `["..settings.public.."]`\n》*Strict Settings* > `["..settings.strict.."]`\n》*Flood Sensitivity* > `["..NUM_MSG_MAX.."]`\n*_____________________*\n[channel](telegram.me/extreme_ch)\n[developer](telegram.me/iborn)"
   return send_api_msg(msg, get_receiver_api(msg), text, true, 'md')
 end
 
@@ -1479,7 +1479,7 @@ local function run(msg, matches)
 				resolve_username(username,  callbackres, cbres_extra)
 			else
 				savelog(msg.to.id, name_log.." ["..msg.from.id.."] requested SuperGroup ID")
-				local text = '*Group ID* : <code>"..msg.to.id.."</code>\n<b>Your ID</b> : <code>"..msg.from.id.."</code>\n<b>Your Name</b> : <code>" ..string.gsub(msg.from.print_name, "_", " ").. "</code>'
+				local text = '*Group ID* : `"..msg.to.id.."`\n<b>Your ID</b> : `"..msg.from.id.."`\n<b>Your Name</b> : [" ..string.gsub(msg.from.print_name, "_", " ").. "](telegram.me/"..msg.from.username..")'
         return send_api_msg(msg, get_receiver_api(msg), text, true, 'md') end
 		end
 
