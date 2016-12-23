@@ -1532,7 +1532,7 @@ local function run(msg, matches)
 				return "not Have <b>link</b>\nFirst Change link by /setlink !"
 			end
 			savelog(msg.to.id, name_log.." ["..msg.from.id.."] requested group link ["..group_link.."]")
-			local text = '*Gp Name :* `"..msg.to.title.."`\n*Link for* ["..gp_type.."]("..group_link..") *Group!*'
+			local text = '*Gp Name :* `'..msg.to.title..'`\n*Link for* ['..msg.to.title..']("..group_link..") *Group!*'
       return send_api_msg(msg, get_receiver_api(msg), text, true, 'md')
 		end
 
