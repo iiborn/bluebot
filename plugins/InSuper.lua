@@ -1479,7 +1479,7 @@ local function run(msg, matches)
 				resolve_username(username,  callbackres, cbres_extra)
 			else
 				savelog(msg.to.id, name_log.." ["..msg.from.id.."] requested SuperGroup ID")
-				local text = '["..msg.from.print_name.."](https://telegram.me/"..msg.from.username..")\n*Your ID* : `"..msg.from.id.."`\n*Group ID* : `"..msg.to.id.."`"'
+				local text = ''
         return send_api_msg(msg, get_receiver_api(msg), text, true, 'md') end
 		end
 
@@ -1510,7 +1510,8 @@ local function run(msg, matches)
 		if matches[1] == 'setlink' and is_owner(msg) then
 			data[tostring(msg.to.id)]['settings']['set_link'] = 'waiting'
 			save_data(_config.moderation.data, data)
-			return '<b>Good</b> !\nNow Send Group link ...'
+      local text '*Good* !\n`Now Send Group link`...'
+			return send_api_msg(msg, get_receiver_api(msg), text, true, 'md')
 		end
 
 		if msg.text then
@@ -1531,7 +1532,7 @@ local function run(msg, matches)
 				return "not Have <b>link</b>\nFirst Change link by /setlink !"
 			end
 			savelog(msg.to.id, name_log.." ["..msg.from.id.."] requested group link ["..group_link.."]")
-			local text = 'Link for* ["..msg.to.title.."]("..group_link..") *Group!*'
+			local text = '*Gp Name :* `"..msg.to.title.."`\n*Link for* ["..gp_type.."]("..group_link..") *Group!*'
       return send_api_msg(msg, get_receiver_api(msg), text, true, 'md')
 		end
 
