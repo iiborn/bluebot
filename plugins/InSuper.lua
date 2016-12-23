@@ -1479,7 +1479,7 @@ local function run(msg, matches)
 				resolve_username(username,  callbackres, cbres_extra)
 			else
 				savelog(msg.to.id, name_log.." ["..msg.from.id.."] requested SuperGroup ID")
-				local text = '*Group ID* : `"..msg.to.id.."`\n<b>Your ID</b> : `"..msg.from.id.."`\n<b>Your Name</b> : [" ..string.gsub(msg.from.print_name, "_", " ").. "](telegram.me/"..msg.from.username..")'
+				local text = "["..msg.from.print_name.."](https://telegram.me/"..msg.from.username..")\n*Your ID* : `"..msg.from.id.."`\n*Group ID* : `"..msg.to.id.."`"'
         return send_api_msg(msg, get_receiver_api(msg), text, true, 'md') end
 		end
 
@@ -1517,7 +1517,8 @@ local function run(msg, matches)
 			if msg.text:match("^(https://telegram.me/joinchat/%S+)$") and data[tostring(msg.to.id)]['settings']['set_link'] == 'waiting' and is_owner(msg) then
 				data[tostring(msg.to.id)]['settings']['set_link'] = msg.text
 				save_data(_config.moderation.data, data)
-				return "New <b>link</b> was Set !"
+        local text = 'New [link]("..group_link..") was Set !'
+				return send_api_msg(msg, get_receiver_api(msg), text, true, 'md')
 			end
 		end
 
@@ -1530,7 +1531,8 @@ local function run(msg, matches)
 				return "not Have <b>link</b>\nFirst Change link by /setlink !"
 			end
 			savelog(msg.to.id, name_log.." ["..msg.from.id.."] requested group link ["..group_link.."]")
-			return "Your Group <b>link</b> :\n> "..group_link
+			local text = 'Link for* ["..msg.to.title.."]("..group_link..") *Group!*'
+      return send_api_msg(msg, get_receiver_api(msg), text, true, 'md')
 		end
 
 		if matches[1] == "invite" and is_sudo(msg) then
