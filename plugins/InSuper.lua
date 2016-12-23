@@ -1510,7 +1510,7 @@ local function run(msg, matches)
 		if matches[1] == 'setlink' and is_owner(msg) then
 			data[tostring(msg.to.id)]['settings']['set_link'] = 'waiting'
 			save_data(_config.moderation.data, data)
-      local text '*Good* !\nNow Send Group link...'
+      local text '*Good* !\nNow Send Group link'
 			return send_api_msg(msg, get_receiver_api(msg), text, true, 'md')
 		end
 
