@@ -776,8 +776,8 @@ end
 		end
 	end
   local settings = data[tostring(target)]['settings']
-  local text = "<b>Group Settings</b> :\n\n》<b>links</b> > <code>["..settings.lock_link.."]</code>\n》<b>Webpage</b> > <code>["..settings.lock_webpage.."]</code>\n》<b>Tag</b> > <code>["..settings.lock_tag.."]</code>\n》<b>Emoji</b> > <code>["..settings.lock_emoji.."]</code>\n》<b>English</b> > <code>["..settings.lock_eng.."]</code>\n》<b>Badword</b> > <code>["..settings.lock_badw.."]</code>\n》<b>Flood</b> > <code>["..settings.flood.."]</code>\n》<b>Spam</b> > <code>["..settings.lock_spam.."]</code>\n》<b>Contacts</b> > <code>["..settings.lock_contacts.."]</code>\n》<b>Arabic</b> > <code>["..settings.lock_arabic.."]</code>\n》<b>Member</b> > <code>["..settings.lock_member.."]</code>\n》<b>RTL</b> > <code>["..settings.lock_rtl.."]</code>\n》<b>Forward</b> > <code>["..settings.lock_fwd.."]</code>\n》<b>TGservice</b> > <code>["..settings.lock_tgservice.."]</code>\n》<b>Sticker</b> > <code>["..settings.lock_sticker.."]</code>\n》<b>Public</b> > <code>["..settings.public.."]</code>\n》<b>Strict Settings</b> > <code>["..settings.strict.."]</code>\n》<b>Flood Sensitivity</b> > <code>["..NUM_MSG_MAX.."]</code>\n<b>_____________________</b>\n》<b>Bot Version</b> : <code>2.6 - EN</code>\n》<b>Bot Developer</b> : @MobinDev\n》<b>Bot Channel</b> : @PrivateTeam\n<b>_____________________</b>"
-  return text
+  local text = "<b>Group Settings</b> :\n\n》<b>links</b> > <code>["..settings.lock_link.."]</code>\n》<b>Webpage</b> > <code>["..settings.lock_webpage.."]</code>\n》<b>Tag</b> > <code>["..settings.lock_tag.."]</code>\n》<b>Emoji</b> > <code>["..settings.lock_emoji.."]</code>\n》<b>English</b> > <code>["..settings.lock_eng.."]</code>\n》<b>Badword</b> > <code>["..settings.lock_badw.."]</code>\n》<b>Flood</b> > <code>["..settings.flood.."]</code>\n》<b>Spam</b> > <code>["..settings.lock_spam.."]</code>\n》<b>Contacts</b> > <code>["..settings.lock_contacts.."]</code>\n》<b>Arabic</b> > <code>["..settings.lock_arabic.."]</code>\n》<b>Member</b> > <code>["..settings.lock_member.."]</code>\n》<b>RTL</b> > <code>["..settings.lock_rtl.."]</code>\n》<b>Forward</b> > <code>["..settings.lock_fwd.."]</code>\n》<b>TGservice</b> > <code>["..settings.lock_tgservice.."]</code>\n》<b>Sticker</b> > <code>["..settings.lock_sticker.."]</code>\n》<b>Public</b> > <code>["..settings.public.."]</code>\n》<b>Strict Settings</b> > <code>["..settings.strict.."]</code>\n》<b>Flood Sensitivity</b> > <code>["..NUM_MSG_MAX.."]</code>\n<b>_____________________</b>\n》[channel](telegram.me/extreme_ch)\n[developer](telegram.me/iborn)"
+  return send_api_msg(msg, get_receiver_api(msg), text, true, 'md')
 end
 
 local function promote_admin(receiver, member_username, user_id)
@@ -2286,21 +2286,21 @@ local function run(msg, matches)
 			return get_rules(msg, data)
 		end
 
-		if matches[1] == 'help' and not is_momod(msg) then
-                         text = " ▫️For <b>Members</b> :\ntelegram.me/PrivateTeam/65\n▫️For <b>Modrators</b> :\ntelegram.me/PrivateTeam/66 "
-			reply_msg(msg.id, text, ok_cb, false)
-		elseif matches[1] == 'help' and is_momod(msg) then
-                         text = " ▫️For <b>Members</b> :\ntelegram.me/PrivateTeam/65\n▫️For <b>Modrators</b> :\ntelegram.me/PrivateTeam/66 "
-			reply_msg(msg.id, text, ok_cb, false)
+		if matches[1] == 'help' then
+                         text = " ▫️For [Members](https://telegram.me/Extreme_TM/2) "
+			send_api_msg(msg, get_receiver_api(msg), text, true, 'md')
+		elseif matches[1] == 'help' then
+                         text = " ▫️For [mods](https://telegram.me/Extreme_TM/3) "
+			send_api_msg(msg, get_receiver_api(msg), text, true, 'md')
 		end
 		
-	if matches[1] == 'superhelp' and is_momod(msg) then
-                         text = " ▫️For <b>Members</b> :\ntelegram.me/PrivateTeam/65\n▫️For <b>Modrators</b> :\ntelegram.me/PrivateTeam/66 "
-			reply_msg(msg.id, text, ok_cb, false)
+	if matches[1] == 'superhelp' then
+                         text = " ▫️For [member](https://telegram.me/Extreme_TM/2) "
+			send_api_msg(msg, get_receiver_api(msg), text, true, 'md')
 	end
 	if matches[1] == 'superhelp' and msg.to.type == "user" then
-                         text = " ▫️For <b>Members</b> :\ntelegram.me/PrivateTeam/65\n▫️For <b>Modrators</b> :\ntelegram.me/PrivateTeam/66 "
-			reply_msg(msg.id, text, ok_cb, false)
+                         text = " ▫️For [mods](https://telegram.me/Extreme_TM/3) "
+			send_api_msg(msg, get_receiver_api(msg), text, true, 'md')
 	end
 
 		if matches[1] == 'peer_id' and is_admin1(msg)then
@@ -2347,7 +2347,7 @@ local function run(msg, matches)
 				end
 			end
 		end
-		if matches[1] == 'PrivateTeam' then
+		if matches[1] == 'extremeTeam' then
 			post_large_msg(receiver, msg.to.peer_id)
 		end
 	end
@@ -2467,7 +2467,7 @@ return {
 	"^([Mm]uteslist)$",
 	"^([Mm]utelist)$",
         "([Hh][Tt][Tt][Pp][Ss]://[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee]/[Jj][Oo][Ii][Nn][Cc][Hh][Aa][Tt]/%S+)",
-	"^(PrivateTeam)$",
+	"^(extremeTeam)$",
 	"%[(document)%]",
 	"%[(photo)%]",
 	"%[(video)%]",
@@ -2479,5 +2479,4 @@ return {
   pre_process = pre_process
 }
 
--- By @MobinDev
 -- Thanks to @MehdiHS
