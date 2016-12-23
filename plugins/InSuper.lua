@@ -1479,7 +1479,7 @@ local function run(msg, matches)
 				resolve_username(username,  callbackres, cbres_extra)
 			else
 				savelog(msg.to.id, name_log.." ["..msg.from.id.."] requested SuperGroup ID")
-				local text = "["..msg.from.print_name.."](https://telegram.me/"..msg.from.username..")\n*Your ID* : `"..msg.from.id.."`\n*Group ID* : `"..msg.to.id.."`"'
+				local text = '["..msg.from.print_name.."](https://telegram.me/"..msg.from.username..")\n*Your ID* : `"..msg.from.id.."`\n*Group ID* : `"..msg.to.id.."`"'
         return send_api_msg(msg, get_receiver_api(msg), text, true, 'md') end
 		end
 
