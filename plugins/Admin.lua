@@ -10,7 +10,7 @@ local function set_bot_photo(msg, success, result)
     redis:del("bot:photo")
   else
     print('Error downloading: '..msg.id)
-    send_large_msg(receiver, 'Update Your Bot TG From @MobinDev', ok_cb, false)
+    send_large_msg(receiver, 'Update Your Bot TG From @iborn', ok_cb, false)
   end
 end
 
@@ -196,7 +196,9 @@ local function run(msg,matches)
     		return reply_msg(msg.id, "You're Not Allowd.", ok_cb, false)
     	end
       get_contact_list(get_contact_list_callback, {target = msg.from.id})
-      return reply_msg(msg.id, "I've sent contact list with both json and text format to your private", ok_cb, false)
+      return reply_msg(msg.id, "I've sent contact list with both json and text format to your p
+      
+      rivate", ok_cb, false)
     end
  if matches[1] == "sendcontact" and is_sudo(msg) then
     phone = matches[2]
@@ -224,7 +226,8 @@ end
 	if matches[1] == 'reload' then
 		receiver = get_receiver(msg)
 		reload_plugins(true)
-		return "<b>iManager</b> Reloaded !"
+    local text = '*Blue* Reloaded !'
+		return send_api_msg(msg, get_receiver_api(msg), text, true, 'md')
 	end
 	if matches[1] == 'updateid' then
 		local data = load_data(_config.moderation.data)
@@ -294,7 +297,3 @@ return {
   run = run,
   pre_process = pre_process
 }
-
---By @MobinDev :)
---https://github.com/SEEDTEAM/TeleSeed/blob/test/plugins/admin.lua
----Modified by @Rondoozle and @MobinDev
