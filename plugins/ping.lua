@@ -2,7 +2,7 @@ do
 
 local function run(msg, matches)
   if matches[1]:lower() == 'ping' or 'test' then
-    local text = '<b>Bot Online</b>\n<code>[0]Bug found</code>'
+    local text = '[Bot](telegram.me/ibluebot) *Online*\n`[0]Bug found`'
       return send_api_msg(msg, get_receiver_api(msg), text, true, 'md')
 end
 end
