@@ -1479,7 +1479,7 @@ local function run(msg, matches)
 				resolve_username(username,  callbackres, cbres_extra)
 			else
 				savelog(msg.to.id, name_log.." ["..msg.from.id.."] requested SuperGroup ID")
-				local text = '<b>Group ID</b> : <code>"..msg.to.id.."</code>\n<b>Your ID</b> : <code>"..msg.from.id.."</code>\n<b>Your Name</b> : <code>" ..string.gsub(msg.from.print_name, "_", " ").. "</code>'
+				local text = '*Group ID* : <code>"..msg.to.id.."</code>\n<b>Your ID</b> : <code>"..msg.from.id.."</code>\n<b>Your Name</b> : <code>" ..string.gsub(msg.from.print_name, "_", " ").. "</code>'
         return send_api_msg(msg, get_receiver_api(msg), text, true, 'md') end
 		end
 
