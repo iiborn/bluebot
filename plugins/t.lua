@@ -776,7 +776,7 @@ end
 		end
 	end
   local settings = data[tostring(target)]['settings']
-  local text = "*Group Settings* :\n\n》*links* > `["..settings.lock_link.."]`\n》*Webpage* > `["..settings.lock_webpage.."]`\n》*Tag* > `["..settings.lock_tag.."]`\n》*Emoji* > `["..settings.lock_emoji.."]`\n》*English* > `["..settings.lock_eng.."]`\n》*Badword* > `["..settings.lock_badw.."]`\n》*Flood* > `["..settings.flood.."]`\n》*Spam* > `["..settings.lock_spam.."]`\n》*Contacts* > `["..settings.lock_contacts.."]`\n》*Arabic* > `["..settings.lock_arabic.."]`\n》*Member* > `["..settings.lock_member.."]`\n》*RTL* > `["..settings.lock_rtl.."]`\n》*Forward* > `["..settings.lock_fwd.."]`\n》*TGservice* > `["..settings.lock_tgservice.."]`\n》*Sticker* > `["..settings.lock_sticker.."]`\n》*Public* > `["..settings.public.."]`\n》*Strict Settings* > `["..settings.strict.."]`\n》*Flood Sensitivity* > `["..NUM_MSG_MAX.."]`\n*_____________________*\n[channel](telegram.me/extreme_ch)\n[developer](telegram.me/iborn)"
+  local text = "*Group Settings* :\n\n》*links* > `["..settings.lock_link.."]`\n》*Webpage* > `["..settings.lock_webpage.."]`\n》*Tag* > `["..settings.lock_tag.."]`\n》*Emoji* > `["..settings.lock_emoji.."]`\n》*English* > `["..settings.lock_eng.."]`\n》*Badword* > `["..settings.lock_badw.."]`\n》*Flood* > `["..settings.flood.."]`\n》*Spam* > `["..settings.lock_spam.."]`\n》*Contacts* > `["..settings.lock_contacts.."]`\n》*Arabic* > `["..settings.lock_arabic.."]`\n》*Member* > `["..settings.lock_member.."]`\n》*RTL* > `["..settings.lock_rtl.."]`\n》*Forward* > `["..settings.lock_fwd.."]`\n》*TGservice* > `["..settings.lock_tgservice.."]`\n》*Sticker* > `["..settings.lock_sticker.."]`\n》*Public* > `["..settings.public.."]`\n》*Strict Settings* > `["..settings.strict.."]`\n》*Flood Sensitivity* > `["..NUM_MSG_MAX.."]`\n*_____________________*\n[ExtremeTeam](telegram.me/extreme_ch)\n[Developer](telegram.me/iborn)"
   return send_api_msg(msg, get_receiver_api(msg), text, true, 'md')
 end
 
@@ -788,7 +788,7 @@ local function promote_admin(receiver, member_username, user_id)
     return
   end
   if data[group]['moderators'][tostring(user_id)] then
-    return send_api_msg(get_receiver_api, member_username..' is already a moderator.', true, 'md')
+    return send_large_msg(receiver, member_username..' is already a moderator.')
   end
   data[group]['moderators'][tostring(user_id)] = member_tag_username
   save_data(_config.moderation.data, data)
@@ -801,7 +801,7 @@ local function demote_admin(receiver, member_username, user_id)
     return
   end
   if not data[group]['moderators'][tostring(user_id)] then
-    return send_api_msg(get_receiver_api, member_tag_username..' is not a moderator.', true, 'md')
+    return send_large_msg(receiver, member_tag_username..' is not a moderator.')
   end
   data[group]['moderators'][tostring(user_id)] = nil
   save_data(_config.moderation.data, data)
@@ -812,14 +812,14 @@ local function promote2(receiver, member_username, user_id)
   local group = string.gsub(receiver, 'channel#id', '')
   local member_tag_username = string.gsub(member_username, '@', '(at)')
   if not data[group] then
-    return send_api_msg(get_receiver_api, 'SuperGroup is not added.', true, 'md')
+    return send_large_msg(receiver, 'SuperGroup is not added.')
   end
   if data[group]['moderators'][tostring(user_id)] then
-    return send_api_msg(get_receiver_api, member_username..' is already a moderator.', true, 'md')
+    return send_large_msg(receiver, member_username..' is already a moderator.')
   end
   data[group]['moderators'][tostring(user_id)] = member_tag_username
   save_data(_config.moderation.data, data)
-  send_api_msg(get_receiver_api, member_username..' has been promoted.', true, 'md')
+  send_large_msg(receiver, member_username..' has been promoted.')
 end
 
 local function demote2(receiver, member_username, user_id)
@@ -1264,7 +1264,7 @@ elseif get_cmd == "setadmin" then
 				if result.username then
 					text = member_username.." ["..v.peer_id.."] added as owner"
 				else
-					text = "<code>["..v.peer_id.."]</code> added as <b>Owner</b>"
+					text = "`["..v.peer_id.."]` added as *Owner*"
 				end
 			end
 		elseif memberid and vusername ~= member and vpeer_id ~= memberid then
@@ -1279,7 +1279,7 @@ elseif get_cmd == "setadmin" then
 				data[tostring(channel)]['set_owner'] = tostring(memberid)
 				save_data(_config.moderation.data, data)
 				savelog(channel, name_log.."["..from_id.."] set ["..memberid.."] as owner by username")
-				text = "<code>["..memberid.."]</code> added as <b>Owner</b>"
+				text = "`["..memberid.."]` added as *Owner*"
 			end
 		end
 	end
