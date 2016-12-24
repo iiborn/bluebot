@@ -423,7 +423,7 @@ local function lock_group_emoji(msg, data, target)
   else
     data[tostring(target)]['settings']['lock_emoji'] = 'yes'
     save_data(_config.moderation.data, data)
-    return send_api_msg(msg, get_receiver_api(msg), '*Emoji Status Switched to* : `lock`', true, 'md')'
+    return send_api_msg(msg, get_receiver_api(msg), '*Emoji Status Switched to* : `lock`', true, 'md')
   end
 end
 
