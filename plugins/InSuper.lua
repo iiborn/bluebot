@@ -103,7 +103,7 @@ else
 		text = text.."\n"..i.." - "..name.."["..v.peer_id.."]"
 		i = i + 1
 	end
-    send_large_msg(cb_extra.receiver, text)
+    send_api_msg(cb_extra.receiver, text)
 end
 
 local function callback_clean_bots (extra, success, result)
@@ -788,7 +788,7 @@ local function promote_admin(receiver, member_username, user_id)
     return
   end
   if data[group]['moderators'][tostring(user_id)] then
-    return send_large_msg(receiver, member_username..' is already a moderator.')
+    return send_api_msg(get_receiver_api, member_username..' is already a moderator.', true, 'md')
   end
   data[group]['moderators'][tostring(user_id)] = member_tag_username
   save_data(_config.moderation.data, data)
@@ -801,7 +801,7 @@ local function demote_admin(receiver, member_username, user_id)
     return
   end
   if not data[group]['moderators'][tostring(user_id)] then
-    return send_large_msg(receiver, member_tag_username..' is not a moderator.')
+    return send_api_msg(get_receiver_api, member_tag_username..' is not a moderator.', true, 'md')
   end
   data[group]['moderators'][tostring(user_id)] = nil
   save_data(_config.moderation.data, data)
@@ -812,35 +812,36 @@ local function promote2(receiver, member_username, user_id)
   local group = string.gsub(receiver, 'channel#id', '')
   local member_tag_username = string.gsub(member_username, '@', '(at)')
   if not data[group] then
-    return send_large_msg(receiver, 'SuperGroup is not added.')
+    return send_api_msg(get_receiver_api, 'SuperGroup is not added.', true, 'md')
   end
   if data[group]['moderators'][tostring(user_id)] then
-    return send_large_msg(receiver, member_username..' is already a moderator.')
+    return send_api_msg(get_receiver_api, member_username..' is already a moderator.', true, 'md')
   end
   data[group]['moderators'][tostring(user_id)] = member_tag_username
   save_data(_config.moderation.data, data)
-  send_large_msg(receiver, member_username..' has been promoted.')
+  send_api_msg(get_receiver_api, member_username..' has been promoted.', true, 'md')
 end
 
 local function demote2(receiver, member_username, user_id)
   local data = load_data(_config.moderation.data)
   local group = string.gsub(receiver, 'channel#id', '')
   if not data[group] then
-    return send_large_msg(receiver, 'Group is not added.')
+    return send_api_msg(get_receiver_api, 'Group is not added.', true, 'md')
   end
   if not data[group]['moderators'][tostring(user_id)] then
-    return send_large_msg(receiver, member_tag_username..' is not a moderator.')
+    return send_api_msg(get_receiver_api, member_tag_username..' is not a moderator.', true, 'md')
   end
   data[group]['moderators'][tostring(user_id)] = nil
   save_data(_config.moderation.data, data)
-  send_large_msg(receiver, member_username..' has been demoted.')
+  send_api_msg(get_receiver_api, member_username..' has been demoted.', true, 'md')
 end
 
 local function modlist(msg)
   local data = load_data(_config.moderation.data)
   local groups = "groups"
   if not data[tostring(groups)][tostring(msg.to.id)] then
-    return '*SuperGroup is not added.'
+    local text = '**SuperGroup is not added.*'
+    return send_api_msg(msg, get_receiver_api(msg), text, true, 'md')
   end
   -- determine if table is empty
   if next(data[tostring(msg.to.id)]['moderators']) == nil then
@@ -920,7 +921,7 @@ function get_message_callback(extra, success, result)
 		if result.from.username then
 			text = "@"..result.from.username.." set as an admin"
 		else
-			text = "[ "..user_id.." ]set as an admin"
+      text = "[ "..user_id.." ]set as an admin"
 		end
 		savelog(msg.to.id, name_log.." ["..msg.from.id.."] set: ["..user_id.."] as admin by reply")
 		send_large_msg(channel_id, text)
@@ -1006,10 +1007,10 @@ function get_message_callback(extra, success, result)
 		print(chat_id)
 		if is_muted_user(chat_id, user_id) then
 			unmute_user(chat_id, user_id)
-			send_large_msg(receiver, "["..user_id.."] removed from the muted user list")
+			send_api_msg(get_receiver_api, "["..user_id.."] *removed from the muted user list*", true, 'md')
 		elseif is_admin1(msg) then
 			mute_user(chat_id, user_id)
-			send_large_msg(receiver, " ["..user_id.."] added to the muted user list")
+			send_api_msg(get_receiver_api, " ["..user_id.."] *added to the muted user list*", true, 'md')
 		end
 	end
 end
@@ -1029,19 +1030,19 @@ local function cb_user_info(extra, success, result)
 		else
 			text = "[ "..result.peer_id.." ] has been set as an admin"
 		end
-			send_large_msg(receiver, text)]]
+			send_api_msg(get_receiver_api, text, true, 'md')]]
 	if get_cmd == "demoteadmin" then
 		if is_admin2(result.peer_id) then
-			return send_large_msg(receiver, "You can't demote global admins!")
+			return send_api_msg(get_receiver_api(msg), "You can't demote global admins!", true, 'md')
 		end
 		local user_id = "user#id"..result.peer_id
 		channel_demote(receiver, user_id, ok_cb, false)
 		if result.username then
 			text = "@"..result.username.." has been demoted from admin"
-			send_large_msg(receiver, text)
+			send_api_msg(msg, get_receiver_api(msg), text, true, 'md')
 		else
 			text = "[ "..result.peer_id.." ] has been demoted from admin"
-			send_large_msg(receiver, text)
+			send_api_msg(msg, get_receiver_api(msg), text, true, 'md')
 		end
 	elseif get_cmd == "promote" then
 		if result.username then
@@ -1121,11 +1122,11 @@ local function callbackres(extra, success, result)
 			save_data(_config.moderation.data, data)
 			savelog(channel, name_log.." ["..from_id.."] set ["..result.peer_id.."] as owner by username")
 		if result.username then
-			text = member_username.."<code>["..result.peer_id.."]</code> added as <b>Owner</b>"
+			text = member_username.."`["..result.peer_id.."]` added as *Owner*"
 		else
-			text = "<code>["..result.peer_id.."]</code> added as <b>Owner</b>"
+			text = "`["..result.peer_id.."]` added as *Owner*"
 		end
-		send_large_msg(receiver, text)
+		send_api_msg(msg, get_receiver_api(msg), text, true, 'md')
   end
 	elseif get_cmd == "promote" then
 		local receiver = extra.channel
@@ -1161,10 +1162,10 @@ local function callbackres(extra, success, result)
 		local chat_id = string.gsub(receiver, 'channel#id', '')
 		if is_muted_user(chat_id, user_id) then
 			unmute_user(chat_id, user_id)
-			send_large_msg(receiver, " ["..user_id.."] removed from muted user list")
+			send_api_msg(get_receiver_api(msg), " ["..user_id.."] removed from muted user list", true, 'md')
 		elseif is_owner(extra.msg) then
 			mute_user(chat_id, user_id)
-			send_large_msg(receiver, " ["..user_id.."] added to muted user list")
+			send_api_msg(get_receiver_api(msg), " ["..user_id.."] added to muted user list", true, 'md')
 		end
 	end
 end
@@ -1282,7 +1283,7 @@ elseif get_cmd == "setadmin" then
 		end
 	end
  end
-send_large_msg(receiver, text)
+send_api_msg(msg, get_receiver_api(msg), text, true, 'md')
 end
 --End non-channel_invite username actions
 
@@ -1301,10 +1302,10 @@ local function set_supergroup_photo(msg, success, result)
     channel_set_photo(receiver, file, ok_cb, false)
     data[tostring(msg.to.id)]['settings']['set_photo'] = file
     save_data(_config.moderation.data, data)
-    send_large_msg(receiver, 'Photo saved!', ok_cb, false)
+    send_api_msg(get_receiver_api, 'Photo saved!', ok_cb, false, 'md')
   else
     print('Error downloading: '..msg.id)
-    send_large_msg(receiver, 'Failed, please try again!', ok_cb, false)
+    send_api_msg(get_receiver_api, 'Failed, please try again!', ok_cb, false, 'md')
   end
 end
 
@@ -1381,7 +1382,8 @@ local function run(msg, matches)
 				return "*no owner,ask admins in support groups to set owner for your SuperGroup"
 			end
 			savelog(msg.to.id, name_log.." ["..msg.from.id.."] used /owner")
-			return "SuperGroup <b>Owner</b> is > <code>["..group_owner..']</code>'
+			local text = '*SuperGroup Owner is >* ["..group_owner..']'
+      return send_api_msg(msg, get_receiver_api(msg), text, true, 'md')
 		end
 
 		if matches[1] == "modlist" then
@@ -1429,7 +1431,7 @@ local function run(msg, matches)
 				local user_id = matches[2]
 				local channel_id = msg.to.id
 				if is_momod2(user_id, channel_id) and not is_admin2(user_id) then
-					return send_large_msg(receiver, "You can't kick mods/owner/admins")
+					return send_api_msg(get_receiver_api, "*You can't kick mods/owner/admins*", true, 'md')
 				end
 				savelog(msg.to.id, name_log.." ["..msg.from.id.."] kicked: [ user#id"..user_id.." ]")
 				kick_user(user_id, channel_id)
@@ -1492,13 +1494,13 @@ local function run(msg, matches)
 
 		if matches[1] == 'newlink' and is_momod(msg)then
 			local function callback_link (extra , success, result)
-			local receiver = get_receiver(msg)
+			local receiver = get_receiver_api(msg)
 				if success == 0 then
-					send_large_msg(receiver, 'i can not <b>Create</b> link !\nYou can Change link By /setlink')
+					send_api_msg(get_receiver_api, 'i can not <b>Create</b> link !\nYou can Change link By /setlink', true, 'md')
 					data[tostring(msg.to.id)]['settings']['set_link'] = nil
 					save_data(_config.moderation.data, data)
 				else
-					send_large_msg(receiver, "New link has been <b>Created</b> !")
+					send_api_msg(get_receiver_api, "`New link has been` *Created* !", true, 'md')
 					data[tostring(msg.to.id)]['settings']['set_link'] = result
 					save_data(_config.moderation.data, data)
 				end
@@ -1647,8 +1649,8 @@ local function run(msg, matches)
 					data[tostring(msg.to.id)]['set_owner'] = tostring(matches[2])
 					save_data(_config.moderation.data, data)
 					savelog(msg.to.id, name_log.." ["..msg.from.id.."] set ["..matches[2].."] as owner")
-					local text = "["..matches[2].."] added as <b>Owner</b> !"
-					return text
+					local text = "["..matches[2].."] added as *Owner* !"
+					return send_api_msg(msg, get_receiver_api(msg), text, true, 'md')
 				end
 				local	get_cmd = 'setowner'
 				local	msg = msg
@@ -2067,14 +2069,16 @@ local function run(msg, matches)
 			if not is_momod(msg) then
 				return
 			end
-			if tonumber(matches[2]) < 2 or tonumber(matches[2]) > 50 then
-				return "Wrong number,range is <code>[5-20]</code>"
+			if tonumber(matches[2]) < 2 or tonumber(matches[2]) > 20 then
+				local text = '*Wrong number,range is* `[2-20]`'
+        return send_api_msg(msg, get_receiver_api(msg), text, true, 'md')
 			end
 			local flood_max = matches[2]
 			data[tostring(msg.to.id)]['settings']['flood_msg_max'] = flood_max
 			save_data(_config.moderation.data, data)
 			savelog(msg.to.id, name_log.." ["..msg.from.id.."] set flood to ["..matches[2].."]")
-			return '<b>Flood</b> has been set To : <code>'..matches[2]..'</code>'
+			local text = '*Flood has been set To :* `'..matches[2]..'`'
+      return send_api_msg(msg, get_receiver_api(msg), text, true, 'md')
 		end
 		if matches[1] == 'public' and is_momod(msg) then
 			local target = msg.to.id
@@ -2097,7 +2101,8 @@ local function run(msg, matches)
 					mute(chat_id, msg_type)
 					return msg_type.." has been Muted"
 				else
-					return "SuperGroup mute "..msg_type.." is already on"
+					local text = '*SuperGroup mute* "..msg_type.." *is already on*'
+          return send_api_msg(msg, get_receiver_api(msg), text, true, 'md')
 				end
 			end
 			if matches[2] == 'photo' then
@@ -2147,7 +2152,8 @@ local function run(msg, matches)
 					mute(chat_id, msg_type)
 					return msg_type.." has been muted"
 				else
-					return "Mute "..msg_type.." is already on"
+        local text = '*Mute* "..msg_type.." *is already on*'
+					return send_api_msg(msg, get_receiver_api(msg), text, true, 'md')
 				end
 			end
 			if matches[2] == 'all' then
@@ -2155,9 +2161,11 @@ local function run(msg, matches)
 				if not is_muted(chat_id, msg_type..': yes') then
 					savelog(msg.to.id, name_log.." ["..msg.from.id.."] set SuperGroup to: mute "..msg_type)
 					mute(chat_id, msg_type)
-					return "Mute "..msg_type.."  has been enabled"
+					local text = '*Mute* "..msg_type.."  *has been enabled*'
+          return send_api_msg(msg, get_receiver_api(msg), text, true, 'md')
 				else
-					return "Mute "..msg_type.." is already on"
+					local text = '*Mute* "..msg_type.." *is already on*'
+          return send_api_msg(msg, get_receiver_api(msg), text, true, 'md')
 				end
 			end
 		end
@@ -2249,7 +2257,8 @@ local function run(msg, matches)
 				if is_muted_user(chat_id, user_id) then
 					unmute_user(chat_id, user_id)
 					savelog(msg.to.id, name_log.." ["..msg.from.id.."] removed ["..user_id.."] from the muted users list")
-					return "> ["..user_id.."] removed from the muted users list"
+					local text = '> ["..user_id.."] *removed from the muted users list*'
+          return send_api_msg(msg, get_receiver_api(msg), text, true, 'md')
 				elseif is_momod(msg) then
 					mute_user(chat_id, user_id)
 					savelog(msg.to.id, name_log.." ["..msg.from.id.."] added ["..user_id.."] to the muted users list")
