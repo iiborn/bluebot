@@ -1381,7 +1381,7 @@ local function run(msg, matches)
 				return "*no owner,ask admins in support groups to set owner for your SuperGroup"
 			end
 			savelog(msg.to.id, name_log.." ["..msg.from.id.."] used /owner")
-			local text = '*SuperGroup Owner is >* ["..group_owner..']
+			local text = "*SuperGroup Owner is >* `["..group_owner..']`'
       return send_api_msg(msg, get_receiver_api(msg), text, true, 'md')
 		end
 
