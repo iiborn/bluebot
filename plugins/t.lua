@@ -43,8 +43,8 @@ local function check_member_super(cb_extra, success, result)
       end
       data[tostring(groups)][tostring(msg.to.id)] = msg.to.id
       save_data(_config.moderation.data, data)
-	  local text = "*Group name* : `"..msg.to.title.."`\n*Group has been Added by* : @"..msg.from.username.." !"
-      return send_api_msg(msg.id, text, ok_cb, false, 'md')
+	  local text = "<b>Group name</b> : <code>"..msg.to.title.."</code>\n<b>Group has been Added by</b> : @"..msg.from.username.." !"
+      return send_large_msg(msg.id, text, ok_cb, false)
     end
   end
 end
@@ -68,7 +68,7 @@ local function check_member_superrem(cb_extra, success, result)
       data[tostring(groups)][tostring(msg.to.id)] = nil
       save_data(_config.moderation.data, data)
       local text = "*Group name* : `"..msg.to.title.."`\n*Group has been Removed by* : @"..msg.from.username.." !"
-      return send_api_msg(msg.id, text, ok_cb, false, 'md')
+      return send_large_msg(msg.id, text, ok_cb, false)
     end
   end
 end
@@ -103,7 +103,7 @@ else
 		text = text.."\n"..i.." - "..name.."["..v.peer_id.."]"
 		i = i + 1
 	end
-    send_api_msg(cb_extra.receiver, text)
+    send_large_msg(cb_extra.receiver, text)
 end
 
 local function callback_clean_bots (extra, success, result)
@@ -128,7 +128,7 @@ else
 	channel_username = ""
 end
 local text = title..admin_num..user_num..kicked_num..channel_id..channel_username
-    send_api_msg(cb_extra.receiver, text, 'md')
+    send_large_msg_msg(cb_extra.receiver, text)
 end
 
 --Get and output members of supergroup
@@ -1383,7 +1383,7 @@ local function run(msg, matches)
 				return "*no owner,ask admins in support groups to set owner for your SuperGroup"
 			end
 			savelog(msg.to.id, name_log.." ["..msg.from.id.."] used /owner")
-			local text = "*SuperGroup Owner is >* ["..group_owner..']'
+			local text = '*SuperGroup Owner is >* ["..group_owner..']'
       return send_api_msg(msg, get_receiver_api(msg), text, true, 'md')
 		end
 
