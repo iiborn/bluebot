@@ -43,8 +43,8 @@ local function check_member_super(cb_extra, success, result)
       end
       data[tostring(groups)][tostring(msg.to.id)] = msg.to.id
       save_data(_config.moderation.data, data)
-	  local text = "<b>Group name</b> : <code>"..msg.to.title.."</code>\n<b>Group has been Added by</b> : @"..msg.from.username.." !"
-      return reply_msg(msg.id, text, ok_cb, false)
+	  local text = "*Group name* : `"..msg.to.title.."`\n*Group has been Added by* : @"..msg.from.username.." !"
+      return send_api_msg(msg.id, text, ok_cb, false, 'md')
     end
   end
 end
@@ -67,8 +67,8 @@ local function check_member_superrem(cb_extra, success, result)
       end
       data[tostring(groups)][tostring(msg.to.id)] = nil
       save_data(_config.moderation.data, data)
-      local text = "<b>Group name</b> : <code>"..msg.to.title.."</code>\n<b>Group has been Removed by</b> : @"..msg.from.username.." !"
-      return reply_msg(msg.id, text, ok_cb, false)
+      local text = "*Group name* : `"..msg.to.title.."`\n*Group has been Removed by* : @"..msg.from.username.." !"
+      return send_api_msg(msg.id, text, ok_cb, false, 'md')
     end
   end
 end
@@ -128,7 +128,7 @@ else
 	channel_username = ""
 end
 local text = title..admin_num..user_num..kicked_num..channel_id..channel_username
-    send_large_msg(cb_extra.receiver, text)
+    send_api_msg(cb_extra.receiver, text, 'md')
 end
 
 --Get and output members of supergroup
@@ -845,7 +845,8 @@ local function modlist(msg)
   end
   -- determine if table is empty
   if next(data[tostring(msg.to.id)]['moderators']) == nil then
-    return '*No moderator in this group.'
+    local text = '*No moderator in this group.'
+    return send_api_msg(msg, get_receiver_api(msg), text, true, 'md')
   end
   local i = 1
   local message = '\nModerators of ' .. string.gsub(msg.to.print_name, '_', ' ') .. ':\n> '
