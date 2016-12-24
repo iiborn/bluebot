@@ -196,7 +196,7 @@ local function lock_group_links(msg, data, target)
   else
     data[tostring(target)]['settings']['lock_link'] = 'yes'
     save_data(_config.moderation.data, data)
-    return '<b>link Status Switched to</b> : <code>lock</code>\n<b>Changed by : </b>@'..(msg.from.username or msg.from.first_name)
+    return send_api_msg(msg, get_receiver_api(msg), '*link Status Switched to* : `lock`', true, 'md')
   end
 end
 
