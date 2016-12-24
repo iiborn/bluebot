@@ -103,7 +103,7 @@ else
 		text = text.."\n"..i.." - "..name.."["..v.peer_id.."]"
 		i = i + 1
 	end
-    send_large_msg(cb_extra.receiver, text)
+    send_api_msg(cb_extra.receiver, text)
 end
 
 local function callback_clean_bots (extra, success, result)
@@ -788,7 +788,7 @@ local function promote_admin(receiver, member_username, user_id)
     return
   end
   if data[group]['moderators'][tostring(user_id)] then
-    return send_large_msg(receiver, member_username..' is already a moderator.')
+    return send_api_msg(get_receiver_api, member_username..' is already a moderator.', true, 'md')
   end
   data[group]['moderators'][tostring(user_id)] = member_tag_username
   save_data(_config.moderation.data, data)
@@ -801,7 +801,7 @@ local function demote_admin(receiver, member_username, user_id)
     return
   end
   if not data[group]['moderators'][tostring(user_id)] then
-    return send_large_msg(receiver, member_tag_username..' is not a moderator.')
+    return send_api_msg(get_receiver_api, member_tag_username..' is not a moderator.', true, 'md')
   end
   data[group]['moderators'][tostring(user_id)] = nil
   save_data(_config.moderation.data, data)
@@ -812,35 +812,36 @@ local function promote2(receiver, member_username, user_id)
   local group = string.gsub(receiver, 'channel#id', '')
   local member_tag_username = string.gsub(member_username, '@', '(at)')
   if not data[group] then
-    return send_large_msg(receiver, 'SuperGroup is not added.')
+    return send_api_msg(get_receiver_api, 'SuperGroup is not added.', true, 'md')
   end
   if data[group]['moderators'][tostring(user_id)] then
-    return send_large_msg(receiver, member_username..' is already a moderator.')
+    return send_api_msg(get_receiver_api, member_username..' is already a moderator.', true, 'md')
   end
   data[group]['moderators'][tostring(user_id)] = member_tag_username
   save_data(_config.moderation.data, data)
-  send_large_msg(receiver, member_username..' has been promoted.')
+  send_api_msg(get_receiver_api, member_username..' has been promoted.', true, 'md')
 end
 
 local function demote2(receiver, member_username, user_id)
   local data = load_data(_config.moderation.data)
   local group = string.gsub(receiver, 'channel#id', '')
   if not data[group] then
-    return send_large_msg(receiver, 'Group is not added.')
+    return send_api_msg(get_receiver_api, 'Group is not added.', true, 'md')
   end
   if not data[group]['moderators'][tostring(user_id)] then
-    return send_large_msg(receiver, member_tag_username..' is not a moderator.')
+    return send_api_msg(get_receiver_api, member_tag_username..' is not a moderator.', true, 'md')
   end
   data[group]['moderators'][tostring(user_id)] = nil
   save_data(_config.moderation.data, data)
-  send_large_msg(receiver, member_username..' has been demoted.')
+  send_api_msg(get_receiver_api, member_username..' has been demoted.', true, 'md')
 end
 
 local function modlist(msg)
   local data = load_data(_config.moderation.data)
   local groups = "groups"
   if not data[tostring(groups)][tostring(msg.to.id)] then
-    return '*SuperGroup is not added.'
+    local text = '**SuperGroup is not added.*'
+    return send_api_msg(msg, get_receiver_api(msg), text, true, 'md')
   end
   -- determine if table is empty
   if next(data[tostring(msg.to.id)]['moderators']) == nil then
@@ -920,7 +921,7 @@ function get_message_callback(extra, success, result)
 		if result.from.username then
 			text = "@"..result.from.username.." set as an admin"
 		else
-			text = "[ "..user_id.." ]set as an admin"
+      text = "[ "..user_id.." ]set as an admin"
 		end
 		savelog(msg.to.id, name_log.." ["..msg.from.id.."] set: ["..user_id.."] as admin by reply")
 		send_large_msg(channel_id, text)
@@ -1006,10 +1007,10 @@ function get_message_callback(extra, success, result)
 		print(chat_id)
 		if is_muted_user(chat_id, user_id) then
 			unmute_user(chat_id, user_id)
-			send_large_msg(receiver, "["..user_id.."] removed from the muted user list")
+			send_api_msg(get_receiver_api, "["..user_id.."] *removed from the muted user list*", true, 'md')
 		elseif is_admin1(msg) then
 			mute_user(chat_id, user_id)
-			send_large_msg(receiver, " ["..user_id.."] added to the muted user list")
+			send_api_msg(get_receiver_api, " ["..user_id.."] *added to the muted user list*", true, 'md')
 		end
 	end
 end
@@ -1029,7 +1030,7 @@ local function cb_user_info(extra, success, result)
 		else
 			text = "[ "..result.peer_id.." ] has been set as an admin"
 		end
-			send_large_msg(receiver, text)]]
+			send_api_msg(get_receiver_api, text, true, 'md')]]
 	if get_cmd == "demoteadmin" then
 		if is_admin2(result.peer_id) then
 			return send_api_msg(get_receiver_api(msg), "You can't demote global admins!", true, 'md')
@@ -1121,9 +1122,9 @@ local function callbackres(extra, success, result)
 			save_data(_config.moderation.data, data)
 			savelog(channel, name_log.." ["..from_id.."] set ["..result.peer_id.."] as owner by username")
 		if result.username then
-			text = member_username.."<code>["..result.peer_id.."]</code> added as <b>Owner</b>"
+			text = member_username.."`["..result.peer_id.."]` added as *Owner*"
 		else
-			text = "<code>["..result.peer_id.."]</code> added as <b>Owner</b>"
+			text = "`["..result.peer_id.."]` added as *Owner*"
 		end
 		send_api_msg(msg, get_receiver_api(msg), text, true, 'md')
   end
@@ -1301,10 +1302,10 @@ local function set_supergroup_photo(msg, success, result)
     channel_set_photo(receiver, file, ok_cb, false)
     data[tostring(msg.to.id)]['settings']['set_photo'] = file
     save_data(_config.moderation.data, data)
-    send_large_msg(receiver, 'Photo saved!', ok_cb, false)
+    send_api_msg(get_receiver_api, 'Photo saved!', ok_cb, false, 'md')
   else
     print('Error downloading: '..msg.id)
-    send_large_msg(receiver, 'Failed, please try again!', ok_cb, false)
+    send_api_msg(get_receiver_api, 'Failed, please try again!', ok_cb, false, 'md')
   end
 end
 
@@ -1381,7 +1382,7 @@ local function run(msg, matches)
 				return "*no owner,ask admins in support groups to set owner for your SuperGroup"
 			end
 			savelog(msg.to.id, name_log.." ["..msg.from.id.."] used /owner")
-			local text = "*SuperGroup Owner is >* `["..group_owner..']`'
+			local text = '*SuperGroup Owner is >* ["..group_owner..']'
       return send_api_msg(msg, get_receiver_api(msg), text, true, 'md')
 		end
 
@@ -1430,7 +1431,7 @@ local function run(msg, matches)
 				local user_id = matches[2]
 				local channel_id = msg.to.id
 				if is_momod2(user_id, channel_id) and not is_admin2(user_id) then
-					return send_large_msg(receiver, "You can't kick mods/owner/admins")
+					return send_api_msg(get_receiver_api, "*You can't kick mods/owner/admins*", true, 'md')
 				end
 				savelog(msg.to.id, name_log.." ["..msg.from.id.."] kicked: [ user#id"..user_id.." ]")
 				kick_user(user_id, channel_id)
@@ -1499,7 +1500,7 @@ local function run(msg, matches)
 					data[tostring(msg.to.id)]['settings']['set_link'] = nil
 					save_data(_config.moderation.data, data)
 				else
-					send_large_msg(receiver, "New link has been <b>Created</b> !")
+					send_api_msg(get_receiver_api, "`New link has been` *Created* !", true, 'md')
 					data[tostring(msg.to.id)]['settings']['set_link'] = result
 					save_data(_config.moderation.data, data)
 				end
@@ -1648,7 +1649,7 @@ local function run(msg, matches)
 					data[tostring(msg.to.id)]['set_owner'] = tostring(matches[2])
 					save_data(_config.moderation.data, data)
 					savelog(msg.to.id, name_log.." ["..msg.from.id.."] set ["..matches[2].."] as owner")
-					local text = "["..matches[2].."] added as <b>Owner</b> !"
+					local text = "["..matches[2].."] added as *Owner* !"
 					return send_api_msg(msg, get_receiver_api(msg), text, true, 'md')
 				end
 				local	get_cmd = 'setowner'
