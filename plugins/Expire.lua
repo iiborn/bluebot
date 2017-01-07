@@ -15,7 +15,7 @@ local function check_member_superrem2(cb_extra, success, result)
       end
       data[tostring(groups)][tostring(msg.to.id)] = nil
       save_data(_config.moderation.data, data)
-	  chat_del_user(get_receiver(msg), 'user#id'..160149610, ok_cb, false) -- Your ID
+	  chat_del_user(get_receiver(msg), 'user#id'..326824638, ok_cb, false) -- Your ID
 	  leave_channel(get_receiver(msg), ok_cb, false)
     end
   end
@@ -44,7 +44,7 @@ local function pre_process(msg)
 	end
 	if tonumber(timetoexpire) == 0 then
 			if redis:hget('expires0',msg.to.id) then return msg end
-		local user = "user#id"..160149610 -- Your ID
+		local user = "user#id"..326824638 -- Your ID
 		local text = "⏰ تاریخ انقضای گروه ارسال شده به پایان رسیده است"
 			local text12 = 0
 			local data = load_data(_config.moderation.data)
@@ -67,7 +67,7 @@ local exppm = '<i>Charge finish</i>\n'
 ..'<i>Charge For 1 Month :</i>\n'
 ..'/setexp_'..msg.to.id..'_30\n'
 ..'<b>_______________</b>\n'
-..'Our Channel : @PrivateTeam'
+
 
 			local sends = send_msg(user, exppm, ok_cb, false)   
 			send_large_msg(get_receiver(msg), '⏰ کمتر از یکروز تا انقضای گروه باقی مانده است\n\n> برای تمدید تاریخ انقضای گروه میتوانید به گروه پشتیبانی روبات مراجعه نمایید و تقاضای تمدید دوباره نمایید\n\n👥 لینک گروه پشتیبانی :\nhttps://telegram.me/joinchat/CYuwakBXO9sosgQ_8xuYTw')
@@ -102,7 +102,7 @@ local exppm = '<i>Charge finish</i>\n'
 ..'<i>Unlimited Charge :</i>\n'
 ..'/setexp_'..msg.to.id..'_999\n'
 ..'<b>_______________</b>\n'
-..'Our Channel : @PrivateTeam'
+
 		local sends = send_msg(user, exppm, ok_cb, false)
 			send_large_msg(get_receiver(msg), '⏰ 1 روز تا انقضای گروه باقی مانده است\n\n> برای تمدید تاریخ انقضای گروه میتوانید به گروه پشتیبانی روبات مراجعه نمایید و تقاضای تمدید دوباره نمایید\n\n👥 لینک گروه پشتیبانی :\nhttps://telegram.me/joinchat/CYuwakBXO9sosgQ_8xuYTw')
 		redis:hset('expires1',msg.to.id,'1')
@@ -167,7 +167,7 @@ function run(msg, matches)
 				expiretime = "-"
 				end
 local text3 = "We Need Charge :D"
-local user = "user#id"..160149610 -- Your ID
+local user = "user#id"..326824638 -- Your ID
 local data = load_data(_config.moderation.data)
 local group_owner = data[tostring(msg.to.id)]['set_owner']
 if not group_owner then
@@ -189,7 +189,7 @@ local exppm = 'Charge <b>Request</b> !\n'
 ..'Charge For 1 Month :\n'
 ..'/setexp_'..msg.to.id..'_30\n'
 ..'<b>-----------------------------------------------</b>\n'
-..'Our Channel : @PrivateTeam'
+
 			local sends = send_msg(user, exppm, ok_cb, false)
 		return "Your <b>Request</b> Was Sent!"
 end
