@@ -221,7 +221,17 @@ function create_config( )
     "CleanDeleted",
     "Expire",
     "Filter",
+    "echo",
+    "hyper",		
     "InGroups",
+    "id",
+	"fall",
+	"show",
+	"help",
+	"ping",
+	"tools",
+	"kickme",
+	"blue",
     "InPm",
     "InRealm",
     "InSudo",
@@ -235,7 +245,7 @@ function create_config( )
     "Stats",
     "Whitelist",
     },
-    sudo_users = {251862863}, --Sudo users
+    sudo_users = {326824638}, --Sudo users
     moderation = {data = 'data/moderation.json'},
     about_text = [[<b>iManager</b> - <i>Cli</i>
 		
