@@ -192,11 +192,11 @@ local function lock_group_links(msg, data, target)
   end
   local group_link_lock = data[tostring(target)]['settings']['lock_link']
   if group_link_lock == 'yes' then
-    return send_api_msg(msg, get_receiver_api(msg), '*links Status is Already* : `lock`', true, 'md')
+    return '<b>links Status is Already</b> : <code>lock</code>'
   else
     data[tostring(target)]['settings']['lock_link'] = 'yes'
     save_data(_config.moderation.data, data)
-    return send_api_msg(msg, get_receiver_api(msg), '*link Status Switched to* : `lock`', true, 'md')
+    return '<b>link Status Switched to</b> : <code>lock</code>\n<b>Changed by : </b>@'..(msg.from.username or msg.from.first_name)
   end
 end
 
@@ -206,11 +206,11 @@ local function unlock_group_links(msg, data, target)
   end
   local group_link_lock = data[tostring(target)]['settings']['lock_link']
   if group_link_lock == 'no' then
-    return send_api_msg(msg, get_receiver_api(msg), '*links Status is Already* : `unlock`', true, 'md')
+    return '<b>links Status is Already</b> : <code>unlock</code>'
   else
     data[tostring(target)]['settings']['lock_link'] = 'no'
     save_data(_config.moderation.data, data)
-    return send_api_msg(msg, get_receiver_api(msg), '*link Status Switched to* : `unlock`', true, 'md')
+    return '<b>link Status Switched to</b> : <code>unlock</code>\n<b>Changed by : </b>@'..(msg.from.username or msg.from.first_name)
   end
 end
 
@@ -223,11 +223,11 @@ local function lock_group_spam(msg, data, target)
   end
   local group_spam_lock = data[tostring(target)]['settings']['lock_spam']
   if group_spam_lock == 'yes' then
-    return send_api_msg(msg, get_receiver_api(msg), '*Spam Status is Already* : `lock`', true, 'md')
+    return '<b>Spam Status is Already</b> : <code>lock</code>'
   else
     data[tostring(target)]['settings']['lock_spam'] = 'yes'
     save_data(_config.moderation.data, data)
-    return send_api_msg(msg, get_receiver_api(msg), '*Spam Status Switched to* : `lock`', true, 'md')
+    return '<b>Spam Status Switched to</b> : <code>lock</code>\n<b>Changed by : </b>@'..(msg.from.username or msg.from.first_name)
   end
 end
 
@@ -237,11 +237,11 @@ local function unlock_group_spam(msg, data, target)
   end
   local group_spam_lock = data[tostring(target)]['settings']['lock_spam']
   if group_spam_lock == 'no' then
-    return send_api_msg(msg, get_receiver_api(msg), '*Spam Status is Already* : `unlock`', true, 'md')
+    return '<b>Spam Status is Already</b> : <code>unlock</code>'
   else
     data[tostring(target)]['settings']['lock_spam'] = 'no'
     save_data(_config.moderation.data, data)
-    return send_api_msg(msg, get_receiver_api(msg), '*Spam Status Switched to* : `unlock`', true, 'md')
+    return '<b>Spam Status Switched to</b> : <code>unlock</code>\n<b>Changed by : </b>@'..(msg.from.username or msg.from.first_name)
   end
 end
 
@@ -251,11 +251,11 @@ local function lock_group_flood(msg, data, target)
   end
   local group_flood_lock = data[tostring(target)]['settings']['flood']
   if group_flood_lock == 'yes' then
-    return send_api_msg(msg, get_receiver_api(msg), '*Spam Status is Already* :   lock`', true, 'md')
+    return '<b>Spam Status is Already</b> : <code>lock</code>'
   else
     data[tostring(target)]['settings']['flood'] = 'yes'
     save_data(_config.moderation.data, data)
-    return send_api_msg(msg, get_receiver_api(msg), '*Spam Status Switched to* : `lock`', true, 'md')
+    return '<b>Spam Status Switched to</b> : <code>lock</code>\n<b>Changed by : </b>@'..(msg.from.username or msg.from.first_name)
   end
 end
 
@@ -265,11 +265,11 @@ local function unlock_group_flood(msg, data, target)
   end
   local group_flood_lock = data[tostring(target)]['settings']['flood']
   if group_flood_lock == 'no' then
-    return send_api_msg(msg, get_receiver_api(msg), '*Spam Status is Already* : `unlock`', true, 'md')
+    return '<b>Spam Status is Already</b> : <code>unlock</code>'
   else
     data[tostring(target)]['settings']['flood'] = 'no'
     save_data(_config.moderation.data, data)
-    return send_api_msg(msg, get_receiver_api(msg), '*Spam Status Switched to* : `unlock`', true, 'md')
+    return '<b>Spam Status Switched to</b> : <code>unlock</code>\n<b>Changed by : </b>@'..(msg.from.username or msg.from.first_name)
   end
 end
 
@@ -279,11 +279,11 @@ local function lock_group_arabic(msg, data, target)
   end
   local group_arabic_lock = data[tostring(target)]['settings']['lock_arabic']
   if group_arabic_lock == 'yes' then
-    return send_api_msg(msg, get_receiver_api(msg), '*Arabic Status is Already* : `lock`', true, 'md')
+    return '<b>Arabic Status is Already</b> : <code>lock</code>'
   else
     data[tostring(target)]['settings']['lock_arabic'] = 'yes'
     save_data(_config.moderation.data, data)
-    return send_api_msg(msg, get_receiver_api(msg), '*Arabic Status Switched to* : `lock`', true, 'md')
+    return '<b>Arabic Status Switched to</b> : <code>lock</code>\n<b>Changed by : </b>@'..(msg.from.username or msg.from.first_name)
   end
 end
 
@@ -293,11 +293,11 @@ local function unlock_group_arabic(msg, data, target)
   end
   local group_arabic_lock = data[tostring(target)]['settings']['lock_arabic']
   if group_arabic_lock == 'no' then
-    return send_api_msg(msg, get_receiver_api(msg), '*Arabic Status is Already* : unlock', true, 'md')
+    return '<b>Arabic Status is Already</b> : <code>unlock</code>'
   else
     data[tostring(target)]['settings']['lock_arabic'] = 'no'
     save_data(_config.moderation.data, data)
-    return send_api_msg(msg, get_receiver_api(msg), '*Arabic Status Switched to* : `nlock`', true, 'md')
+    return '<b>Arabic Status Switched to</b> : <code>nlock</code>\n<b>Changed by : </b>@'..(msg.from.username or msg.from.first_name)
   end
 end
 -- Tag Fanction by MehdiHS!
@@ -307,11 +307,11 @@ local function lock_group_tag(msg, data, target)
   end
   local group_tag_lock = data[tostring(target)]['settings']['lock_tag']
   if group_tag_lock == 'yes' then
-    return send_api_msg(msg, get_receiver_api(msg), '*Tag Status is Already* : `lock`', true, 'md')
+    return '<b>Tag Status is Already</b> : <code>lock</code>'
   else
     data[tostring(target)]['settings']['lock_tag'] = 'yes'
     save_data(_config.moderation.data, data)
-    return send_api_msg(msg, get_receiver_api(msg), '*Tag Status Switched to* : `lock`', true, 'md')
+    return '<b>Tag Status Switched to</b> : <code>lock</code>\n<b>Changed by : </b>@'..(msg.from.username or msg.from.first_name)
   end
 end
 
@@ -321,25 +321,25 @@ local function unlock_group_tag(msg, data, target)
   end
   local group_tag_lock = data[tostring(target)]['settings']['lock_tag']
   if group_tag_lock == 'no' then
-    return send_api_msg(msg, get_receiver_api(msg), '*Tag Status is Already* : `unlock`', true, 'md')
+    return '<b>Tag Status is Already</b> : <code>unlock</code>'
   else
     data[tostring(target)]['settings']['lock_tag'] = 'no'
     save_data(_config.moderation.data, data)
-    return send_api_msg(msg, get_receiver_api(msg), '*Tag Status Switched to* : `unlock`', true, 'md')
+    return '<b>Tag Status Switched to</b> : <code>unlock</code>\n<b>Changed by : </b>@'..(msg.from.username or msg.from.first_name)
   end
 end
--- WebPage Fanction by MehdiHS! - Thanks To meyti - and iborn :D
+-- WebPage Fanction by MehdiHS! - Thanks To meyti - and Mobini :D
 local function lock_group_webpage(msg, data, target)
   if not is_momod(msg) then
     return
   end
   local group_webpage_lock = data[tostring(target)]['settings']['lock_webpage']
   if group_webpage_lock == 'yes' then
-    return send_api_msg(msg, get_receiver_api(msg), '*Web-link Status is Already* : `lock`', true, 'md')
+    return '<b>Web-link Status is Already</b> : <code>lock</code>'
   else
     data[tostring(target)]['settings']['lock_webpage'] = 'yes'
     save_data(_config.moderation.data, data)
-    return send_api_msg(msg, get_receiver_api(msg), '*Web-link Status Switched to* : `lock`', true, 'md')
+    return '<b>Web-link Status Switched to</b> : <code>lock</code>\n<b>Changed by : </b>@'..(msg.from.username or msg.from.first_name)
   end
 end
 
@@ -349,11 +349,11 @@ local function unlock_group_webpage(msg, data, target)
   end
   local group_webpage_lock = data[tostring(target)]['settings']['lock_webpage']
   if group_webpage_lock == 'no' then
-    return send_api_msg(msg, get_receiver_api(msg), '*Web-link Status is Already* : `lock`', true, 'md')
+    return '<b>Web-link Status is Already</b> : <code>lock</code>'
   else
     data[tostring(target)]['settings']['lock_webpage'] = 'no'
     save_data(_config.moderation.data, data)
-    return send_api_msg(msg, get_receiver_api(msg), '<b>Web-link Status Switched to* : `unlock`', true, 'md')
+    return '<b>Web-link Status Switched to</b> : <code>unlock</code>\n<b>Changed by : </b>@'..(msg.from.username or msg.from.first_name)
   end
 end
 
@@ -363,11 +363,11 @@ local function lock_group_fwd(msg, data, target)
   end
   local group_fwd_lock = data[tostring(target)]['settings']['lock_fwd']
   if group_fwd_lock == 'yes' then
-    return send_api_msg(msg, get_receiver_api(msg), '*Fwd Status is Already* : `lock`', true, 'md')
+    return '<b>Fwd Status is Already</b> : <code>lock</code>'
   else
     data[tostring(target)]['settings']['lock_fwd'] = 'yes'
     save_data(_config.moderation.data, data)
-    return send_api_msg(msg, get_receiver_api(msg), '*Fwd Status Switched to* : `lock`', true, 'md')
+    return '<b>Fwd Status Switched to</b> : <code>lock</code>\n<b>Changed by : </b>@'..(msg.from.username or msg.from.first_name)
   end
 end
 
@@ -377,11 +377,11 @@ local function unlock_group_fwd(msg, data, target)
   end
   local group_fwd_lock = data[tostring(target)]['settings']['lock_fwd']
   if group_fwd_lock == 'no' then
-    return send_api_msg(msg, get_receiver_api(msg), '*Fwd Status is Already* : `unlock`', true, 'md')
+    return '<b>Fwd Status is Already</b> : <code>unlock</code>'
   else
     data[tostring(target)]['settings']['lock_fwd'] = 'no'
     save_data(_config.moderation.data, data)
-    return send_api_msg(msg, get_receiver_api(msg), '*Fwd Status Switched to* : `unlock`', true, 'md')
+    return '<b>Fwd Status Switched to</b> : <code>unlock</code>\n<b>Changed by : </b>@'..(msg.from.username or msg.from.first_name)
   end
 end
 
@@ -391,11 +391,11 @@ local function lock_group_badw(msg, data, target)
   end
   local group_badw_lock = data[tostring(target)]['settings']['lock_badw']
   if group_badw_lock == 'yes' then
-    return send_api_msg(msg, get_receiver_api(msg), '*Badwords Status is Already* : `lock`', true, 'md')
+    return '<b>Badwords Status is Already</b> : <code>lock</code>'
   else
     data[tostring(target)]['settings']['lock_badw'] = 'yes'
     save_data(_config.moderation.data, data)
-    return send_api_msg(msg, get_receiver_api(msg), '*Badwords Status Switched to* : `lock`', true, 'md')
+    return '<b>Badwords Status Switched to</b> : <code>lock</code>\n<b>Changed by : </b>@'..(msg.from.username or msg.from.first_name)
   end
 end
 
@@ -405,11 +405,11 @@ local function unlock_group_badw(msg, data, target)
   end
   local group_badw_lock = data[tostring(target)]['settings']['lock_badw']
   if group_badw_lock == 'no' then
-    return send_api_msg(msg, get_receiver_api(msg), '*Badwords Status is Already* : `unlock`', true, 'md')
+    return '<b>Badwords Status is Already</b> : <code>unlock</code>'
   else
     data[tostring(target)]['settings']['lock_badw'] = 'no'
     save_data(_config.moderation.data, data)
-    return send_api_msg(msg, get_receiver_api(msg), '*Badwords Status Switched to* : `unlock`', true, 'md')
+    return '<b>Badwords Status Switched to</b> : <code>unlock</code>\n<b>Changed by : </b>@'..(msg.from.username or msg.from.first_name)
   end
 end
 
@@ -419,11 +419,11 @@ local function lock_group_emoji(msg, data, target)
   end
   local group_emoji_lock = data[tostring(target)]['settings']['lock_emoji']
   if group_emoji_lock == 'yes' then
-    return send_api_msg(msg, get_receiver_api(msg), '*Emoji Status is Already* : `lock`', true, 'md')
+    return '<b>Emoji Status is Already</b> : <code>lock</code>'
   else
     data[tostring(target)]['settings']['lock_emoji'] = 'yes'
     save_data(_config.moderation.data, data)
-    return send_api_msg(msg, get_receiver_api(msg), '*Emoji Status Switched to* : `lock`', true, 'md')
+    return '<b>Emoji Status Switched to</b> : <code>lock</code>\n<b>Changed by : </b>@'..(msg.from.username or msg.from.first_name)
   end
 end
 
@@ -433,11 +433,11 @@ local function unlock_group_emoji(msg, data, target)
   end
   local group_emoji_lock = data[tostring(target)]['settings']['lock_emoji']
   if group_emoji_lock == 'no' then
-    return send_api_msg(msg, get_receiver_api(msg), '*Emoji Status is Already* : `unlock`', true, 'md')
+    return '<b>Emoji Status is Already</b> : <code>unlock</code>'
   else
     data[tostring(target)]['settings']['lock_emoji'] = 'no'
     save_data(_config.moderation.data, data)
-    return send_api_msg(msg, get_receiver_api(msg), '*Emoji Status Switched to* : `unlock`', true, 'md')
+    return '<b>Emoji Status Switched to</b> : <code>unlock</code>\n<b>Changed by : </b>@'..(msg.from.username or msg.from.first_name)
   end
 end
 
@@ -447,11 +447,11 @@ local function lock_group_eng(msg, data, target)
   end
   local group_eng_lock = data[tostring(target)]['settings']['lock_eng']
   if group_eng_lock == 'yes' then
-    return send_api_msg(msg, get_receiver_api(msg), '*English Status is Already* : `lock`', true, 'md')
+    return '<b>English Status is Already</b> : <code>lock</code>'
   else
     data[tostring(target)]['settings']['lock_eng'] = 'yes'
     save_data(_config.moderation.data, data)
-    return send_api_msg(msg, get_receiver_api(msg), '*English Status Switched to* : `lock`', true, 'md')
+    return '<b>English Status Switched to</b> : <code>lock</code>\n<b>Changed by : </b>@'..(msg.from.username or msg.from.first_name)
   end
 end
 
@@ -461,11 +461,11 @@ local function unlock_group_eng(msg, data, target)
   end
   local group_eng_lock = data[tostring(target)]['settings']['lock_eng']
   if group_eng_lock == 'no' then
-    return send_api_msg(msg, get_receiver_api(msg), '*English Status Switched to* : `unlock`', true, 'md')
+    return '<b>English Status Switched to</b> : <code>unlock</code>\n<b>Changed by : </b>@'..(msg.from.username or msg.from.first_name)
   else
     data[tostring(target)]['settings']['lock_eng'] = 'no'
     save_data(_config.moderation.data, data)
-    return send_api_msg(msg, get_receiver_api(msg), '*English Status is Already* : `unlock`', true, 'md')
+    return '<b>English Status is Already</b> : <code>unlock</code>'
   end
 end
 local function unlock_group_membermod(msg, data, target)
@@ -474,11 +474,11 @@ local function unlock_group_membermod(msg, data, target)
   end
   local group_member_lock = data[tostring(target)]['settings']['lock_member']
   if group_member_lock == 'no' then
-    return send_api_msg(msg, get_receiver_api(msg), '*Members Status is Already* : `unlock`', true, 'md')
+    return '<b>Members Status is Already</b> : <code>unlock</code>'
   else
     data[tostring(target)]['settings']['lock_member'] = 'no'
     save_data(_config.moderation.data, data)
-    return send_api_msg(msg, get_receiver_api(msg), '*Members Status Switched to* : `unlock`', true, 'md')
+    return '<b>Members Status Switched to</b> : <code>unlock</code>\n<b>Changed by : </b>@'..(msg.from.username or msg.from.first_name)
   end
 end
 
@@ -488,11 +488,11 @@ local function lock_group_rtl(msg, data, target)
   end
   local group_rtl_lock = data[tostring(target)]['settings']['lock_rtl']
   if group_rtl_lock == 'yes' then
-    return send_api_msg(msg, get_receiver_api(msg), '*RTL Status is Already* : `lock`', true, 'md')
+    return '<b>RTL Status is Already</b> : <code>lock</code>'
   else
     data[tostring(target)]['settings']['lock_rtl'] = 'yes'
     save_data(_config.moderation.data, data)
-    return send_api_msg(msg, get_receiver_api(msg), '*RTL Status Switched to* : `lock`', true, 'md')
+    return '<b>RTL Status Switched to</b> : <code>lock</code>\n<b>Changed by : </b>@'..(msg.from.username or msg.from.first_name)
   end
 end
 
@@ -502,11 +502,11 @@ local function unlock_group_rtl(msg, data, target)
   end
   local group_rtl_lock = data[tostring(target)]['settings']['lock_rtl']
   if group_rtl_lock == 'no' then
-    return send_api_msg(msg, get_receiver_api(msg), '*RTL Status is Already* : `unlock`', true, 'md')
+    return '<b>RTL Status is Already</b> : <code>unlock</code>'
   else
     data[tostring(target)]['settings']['lock_rtl'] = 'no'
     save_data(_config.moderation.data, data)
-    return send_api_msg(msg, get_receiver_api(msg), '*RTL Status Switched to* : `unlock`', true, 'md')
+    return '<b>RTL Status Switched to</b> : <code>unlock</code>\n<b>Changed by : </b>@'..(msg.from.username or msg.from.first_name)
   end
 end
 
@@ -516,11 +516,11 @@ local function lock_group_tgservice(msg, data, target)
   end
   local group_tgservice_lock = data[tostring(target)]['settings']['lock_tgservice']
   if group_tgservice_lock == 'yes' then
-    return send_api_msg(msg, get_receiver_api(msg), '*TGService Status is Already* : `lock`', true, 'md')
+    return '<b>TGService Status is Already</b> : <code>lock</code>'
   else
     data[tostring(target)]['settings']['lock_tgservice'] = 'yes'
     save_data(_config.moderation.data, data)
-    return send_api_msg(msg, get_receiver_api(msg), '*TGService Status Switched to* : `lock`', true, 'md')
+    return '<b>TGService Status Switched to</b> : <code>lock</code>\n<b>Changed by : </b>@'..(msg.from.username or msg.from.first_name)
   end
 end
 
@@ -530,11 +530,11 @@ local function unlock_group_tgservice(msg, data, target)
   end
   local group_tgservice_lock = data[tostring(target)]['settings']['lock_tgservice']
   if group_tgservice_lock == 'no' then
-    return send_api_msg(msg, get_receiver_api(msg), '*TGService Status is Already* : `unlock`', true, 'md')
+    return '<b>TGService Status is Already</b> : <code>unlock</code>'
   else
     data[tostring(target)]['settings']['lock_tgservice'] = 'no'
     save_data(_config.moderation.data, data)
-    return send_api_msg(msg, get_receiver_api(msg), '*TGService Status Switched to* : `unlock`', true, 'md')
+    return '<b>TGService Status Switched to</b> : <code>unlock</code>\n<b>Changed by : </b>@'..(msg.from.username or msg.from.first_name)
   end
 end
 
@@ -544,11 +544,11 @@ local function lock_group_sticker(msg, data, target)
   end
   local group_sticker_lock = data[tostring(target)]['settings']['lock_sticker']
   if group_sticker_lock == 'yes' then
-    return send_api_msg(msg, get_receiver_api(msg), '*Sticker Status is Already* : `lock`', true, 'md')
+    return '<b>Sticker Status is Already</b> : <code>lock</code>'
   else
     data[tostring(target)]['settings']['lock_sticker'] = 'yes'
     save_data(_config.moderation.data, data)
-    return send_api_msg(msg, get_receiver_api(msg), '*Sticker Status Switched to* : `lock`', true, 'md')
+    return '<b>Sticker Status Switched to</b> : <code>lock</code>\n<b>Changed by : </b>@'..(msg.from.username or msg.from.first_name)
   end
 end
 
@@ -558,11 +558,11 @@ local function unlock_group_sticker(msg, data, target)
   end
   local group_sticker_lock = data[tostring(target)]['settings']['lock_sticker']
   if group_sticker_lock == 'no' then
-    return send_api_msg(msg, get_receiver_api(msg), '*Sticker Status is Already* : `unlock`', true, 'md')
+    return '<b>Sticker Status is Already</b> : <code>unlock</code>'
   else
     data[tostring(target)]['settings']['lock_sticker'] = 'no'
     save_data(_config.moderation.data, data)
-    return send_api_msg(msg, get_receiver_api(msg), '*Sticker Status Switched to* : `unlock`', true, 'md')
+    return '<b>Sticker Status Switched to</b> : <code>unlock</code>\n<b>Changed by : </b>@'..(msg.from.username or msg.from.first_name)
   end
 end
 
@@ -572,11 +572,11 @@ local function lock_group_contacts(msg, data, target)
   end
   local group_contacts_lock = data[tostring(target)]['settings']['lock_contacts']
   if group_contacts_lock == 'yes' then
-    return send_api_msg(msg, get_receiver_api(msg), '*Contact Status is Already* : `lock`', true, 'md')
+    return '<b>Contact Status is Already</b> : <code>lock</code>'
   else
     data[tostring(target)]['settings']['lock_contacts'] = 'yes'
     save_data(_config.moderation.data, data)
-    return send_api_msg(msg, get_receiver_api(msg), '*Contacts Status Switched to* : `lock`', true, 'md')
+    return '<b>Contacts Status Switched to</b> : <code>lock</code>\n<b>Changed by : </b>@'..(msg.from.username or msg.from.first_name)
   end
 end
 
@@ -586,11 +586,11 @@ local function unlock_group_contacts(msg, data, target)
   end
   local group_contacts_lock = data[tostring(target)]['settings']['lock_contacts']
   if group_contacts_lock == 'no' then
-    return send_api_msg(msg, get_receiver_api(msg), '*Contact Status is Already* : `unlock`', true, 'md')
+    return '<b>Contact Status is Already</b> : <code>unlock</code>'
   else
     data[tostring(target)]['settings']['lock_contacts'] = 'no'
     save_data(_config.moderation.data, data)
-    return send_api_msg(msg, get_receiver_api(msg), '*Contacts Status Switched to* : `unlock`', true, 'md')
+    return '<b>Contacts Status Switched to</b> : <code>unlock</code>\n<b>Changed by : </b>@'..(msg.from.username or msg.from.first_name)
   end
 end
 
@@ -600,11 +600,11 @@ local function enable_strict_rules(msg, data, target)
   end
   local group_strict_lock = data[tostring(target)]['settings']['strict']
   if group_strict_lock == 'yes' then
-    return send_api_msg(msg, get_receiver_api(msg), '*Strictly Status is Already* : `enforced`', true, 'md')
+    return '<b>Strictly Status is Already</b> : <code>enforced</code>'
   else
     data[tostring(target)]['settings']['strict'] = 'yes'
     save_data(_config.moderation.data, data)
-    return send_api_msg(msg, get_receiver_api(msg), '*Strict Status Switched to* : `enforced`', true, 'md')
+    return '<b>Strict Status Switched to</b> : <code>enforced</code>\n<b>Changed by : </b>@'..(msg.from.username or msg.from.first_name)
   end
 end
 
@@ -614,11 +614,11 @@ local function disable_strict_rules(msg, data, target)
   end
   local group_strict_lock = data[tostring(target)]['settings']['strict']
   if group_strict_lock == 'no' then
-    return send_api_msg(msg, get_receiver_api(msg), '*Strictly Status is Already* : `unforced`', true, 'md')
+    return '<b>Strictly Status is Already</b> : <code>unforced</code>'
   else
     data[tostring(target)]['settings']['strict'] = 'no'
     save_data(_config.moderation.data, data)
-    return send_api_msg(msg, get_receiver_api(msg), '*Strict Status Switched to* : `unforced`', true, 'md')
+    return '<b>Strict Status Switched to</b> : <code>unforced</code>\n<b>Changed by : </b>@'..(msg.from.username or msg.from.first_name)
   end
 end
 --End supergroup locks
